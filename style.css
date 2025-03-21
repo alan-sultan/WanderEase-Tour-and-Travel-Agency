@@ -94,7 +94,7 @@ nav {
   max-width: var(--max-width);
   margin-inline: auto;
   z-index: 9;
-}
+
 
 .nav__header {
   padding: 1rem;
