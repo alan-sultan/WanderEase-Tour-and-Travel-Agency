@@ -1,5 +1,5 @@
 <?php
-// filepath: c:\Users\ahmed\2nd Semister php project\WanderEase-Tour-and-Travel-Agency-main\Backend\contactController.php
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
