@@ -7,11 +7,22 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="packages.css" />
-    <link rel="icon" href="images/logo.avif"/>
+    <link rel="icon" href="images/logo.avif" />
     <title>WanderEase Tour and Travel Agency</title>
 </head>
 
 <body>
+    <?php
+    session_start();
+    if (isset($_SESSION['error'])) {
+        echo '<div class="error" style="color: red; text-align: center; margin-bottom: 15px;">' . $_SESSION['error'] . '</div>';
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo '<div class="success" style="color: green; text-align: center; margin-bottom: 15px;">' . $_SESSION['success'] . '</div>';
+        unset($_SESSION['success']);
+    }
+    ?>
     <nav>
         <div class="nav__header">
             <div class="nav__logo">
@@ -22,10 +33,16 @@
             </div>
         </div>
         <ul class="nav__links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="#destination">Destinations</a></li>
             <li><a href="#package">Packages</a></li>
             <li><a href="#client">Clients</a></li>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -44,7 +61,11 @@
                         bustling cities.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$130</h3>
                     </div>
                 </div>
@@ -58,7 +79,11 @@
                         Laos.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$150</h3>
                     </div>
                 </div>
@@ -72,7 +97,11 @@
                         architecture.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$110</h3>
                     </div>
                 </div>
@@ -86,7 +115,11 @@
                         bustling cities.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$230</h3>
                     </div>
                 </div>
@@ -100,7 +133,11 @@
                         Italy.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$250</h3>
                     </div>
                 </div>
@@ -114,7 +151,11 @@
                         architecture.
                     </p>
                     <div>
-                        <button class="btn">Book Now</button>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <button class="btn">Book Now</button>
+                        <?php else: ?>
+                            <a href="login.html" class="btn">Log in to Book</a>
+                        <?php endif; ?>
                         <h3>$210</h3>
                     </div>
                 </div>
@@ -190,9 +231,9 @@
             <div class="footer__col">
                 <h4>QUICK LINKS</h4>
                 <ul class="footer__links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="login.html">Login</a></li>
                     <li><a href="#">Testimonials</a></li>
                     <li><a href="#">Contact Us</a></li>
                 </ul>
