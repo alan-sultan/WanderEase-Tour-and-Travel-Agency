@@ -1,3 +1,32 @@
+<?php
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Login logic here...
+
+    if ($login_successful) {
+        $redirect_to = isset($_SESSION['redirect_to']) ? $_SESSION['redirect_to'] : 'index.php';
+        unset($_SESSION['redirect_to']);
+        header("Location: $redirect_to");
+        exit;
+    } else {
+        $_SESSION['error'] = 'Invalid username or password.';
+        header('Location: login.html');
+        exit;
+    }
+}
+
+if (isset($_SESSION['error'])) {
+    echo '<div class="error" style="color: red; text-align: center; margin-bottom: 15px;">' . $_SESSION['error'] . '</div>';
+    unset($_SESSION['error']);
+}
+if (isset($_SESSION['success'])) {
+    echo '<div class="success" style="color: green; text-align: center; margin-bottom: 15px;">' . $_SESSION['success'] . '</div>';
+    unset($_SESSION['success']);
+}
+session_destroy();
+header('Location: index.php');
+exit;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +36,12 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="images/logo.avif"/>
+    <link rel="icon" href="images/logo.avif" />
     <title>WanderEase Tour and Travel Agency</title>
 </head>
 
 <body>
+    <!-- Navigation -->
     <nav>
         <div class="nav__header">
             <div class="nav__logo">
@@ -25,10 +55,18 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#service">Services</a></li>
             <li><a href="#destination">Destinations</a></li>
-            <li><a href="packages.html" >Packages</a></li>
+            <li><a href="packages.html">Packages</a></li>
             <li><a href="#client">Clients</a></li>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
+
+    <!-- Header Section -->
     <header class="header" id="home">
         <div class="section__container header__container">
             <h1>TRAVELLER<br /><span>FOR LIFE.</span></h1>
@@ -53,6 +91,7 @@
         </div>
     </header>
 
+    <!-- Feature Section -->
     <section class="section__container feature__container" id="service">
         <div class="feature__card">
             <img src="images/feature-1.png" alt="feature" />
@@ -77,6 +116,7 @@
         </div>
     </section>
 
+    <!-- Destination Section -->
     <section class="destination" id="destination">
         <div class="section__container destination__container">
             <h2 class="section__header">Top Destinations</h2>
@@ -100,17 +140,23 @@
         </div>
     </section>
 
+    <!-- Discount Section -->
     <section class="discount">
         <div class="section__container discount__container">
             <h2>
                 Get upto 60% discount<br /><span>by joining us before summer</span>
             </h2>
             <div class="discount__btn">
-                <button class="btn">Join Us</button>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <button class="btn">Book Now</button>
+                <?php else: ?>
+                    <a href="login.html" class="btn">Log in to Book</a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
+    <!-- Client Reviews Section -->
     <section class="section__container client__container" id="client">
         <h2 class="section__header">Client Reviews</h2>
         <p class="section__description">
@@ -142,6 +188,7 @@
           </div>
     </section>
 
+    <!-- Subscribe Section -->
     <section class="subscribe">
         <div class="section__container subscribe__container">
             <h2>Subscribe to our newsletter for updates</h2>
@@ -155,6 +202,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="section__container footer__container">
             <div class="footer__col">
