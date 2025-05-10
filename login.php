@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id'])){
 require_once '../config.php'; // Include your database connection file
 
 // Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     // Retrieve form data
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
