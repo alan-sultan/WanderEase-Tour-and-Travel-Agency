@@ -2,7 +2,7 @@
 // filepath: c:\Users\ahmed\2nd Semister php project\WanderEase-Tour-and-Travel-Agency-main\Backend\login.php
 
 session_start();
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])){
     header('Location: ../index.php'); // Redirect to homepage or dashboard
     exit;
 }
